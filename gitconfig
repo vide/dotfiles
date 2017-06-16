@@ -1,0 +1,29 @@
+[user]
+	name = Davide Ferrari
+	email = vide80@gmail.com
+[github]
+	user = vide
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[push]
+	default = simple
+[pretty]
+	graph = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset
+[alias]
+	unpushed = log --stat origin/master..HEAD
+	st  = status
+	gg  = grep --break --heading -n
+	fo  = log --pretty=oneline --shortstat --abbrev-commit
+	cl  = log --graph --pretty --date=relative
+	cls = log --pretty --shortstat
+	ol  = log --pretty --oneline
+    cp  = "!func(){ git pull --no-progress  && git add . && git commit -a -m \"$1\" && git push ;};func"
+    nb  = "!func(){ git pull --no-progress  && git checkout -b \"$1\"; git push --set-upstream origin \"$1\";};func"
+    rb  = "!func(){ git branch -d \"$1\"; git push origin \":$1\"; };func"
+    cm = "!func(){ git add . && git commit -a -m \"$1\";};func"
+[merge]
+ tool = meld
+
+
