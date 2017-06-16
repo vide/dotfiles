@@ -10,6 +10,7 @@
 [push]
 	default = simple
 [pretty]
+# set some nice colors
 	graph = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset
 [alias]
 	unpushed = log --stat origin/master..HEAD
@@ -18,10 +19,15 @@
 	fo  = log --pretty=oneline --shortstat --abbrev-commit
 	cl  = log --graph --pretty --date=relative
 	cls = log --pretty --shortstat
+    # quick glance at the commit history
 	ol  = log --pretty --oneline
+    # commit & push
     cp  = "!func(){ git pull --no-progress  && git add . && git commit -a -m \"$1\" && git push ;};func"
+    # new branch
     nb  = "!func(){ git pull --no-progress  && git checkout -b \"$1\"; git push --set-upstream origin \"$1\";};func"
+    # remove branch (WARNING: both local and remote)
     rb  = "!func(){ git branch -d \"$1\"; git push origin \":$1\"; };func"
+    # commit everything but doesn't push it
     cm = "!func(){ git add . && git commit -a -m \"$1\";};func"
 [merge]
  tool = meld
