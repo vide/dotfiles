@@ -2,7 +2,7 @@
 let mapleader = "ñ"
 syntax enable           " enable syntax processing
 colorscheme badwolf
-set termguicolors
+set term=screen-256color
 " }}}
 set tabstop=4           " 4 space tab
 set expandtab           " use spaces for tabs
