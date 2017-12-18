@@ -1,4 +1,4 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
+# ~/.bashrc: executed by bash(0) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
@@ -11,7 +11,6 @@ esac
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-
 # append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -72,6 +71,12 @@ xterm*|rxvt*)
     ;;
 esac
 
+export EDITOR=vim
+export VISUAL=vim
+
+[[ $- != *i* ]] && return
+[[ -z "$TMUX" ]] && tmux
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -126,21 +131,26 @@ source ~/.bash-git-prompt/gitprompt.sh
 source <(minikube completion bash)
 source <(kubectl completion bash)
 
-function tfa() {
-	terraform apply $@
+function tfa {
+	terraform apply "$@"
         RET=$?	
 	notify-send --urgency=low -i "$([ $RET = 0 ] && echo terminal || echo error)" "terraform apply" "finished with $([ $RET = 0 ] && echo success || echo error)"
 
 }
 
-function tfd() {
-	terraform destroy $@
+function tfd {
+	terraform destroy "$@"
         RET=$?	
 	notify-send --urgency=low -i "$([ $RET = 0 ] && echo terminal || echo error)" "terraform destroy" "finished with $([ $RET = 0 ] && echo success || echo error)"
 }
 
-function tfp() {
-	terraform plan $@
+function tfp {
+	terraform plan "$@"
         RET=$?	
 	notify-send --urgency=low -i "$([ $RET = 0 ] && echo terminal || echo error)" "terraform plan" "finished with $([ $RET = 0 ] && echo success || echo error)"
 }
+
+function agp {
+    ag "$@" | fpp
+}
+

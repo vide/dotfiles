@@ -29,9 +29,6 @@ set hlsearch            " highlight all matches
 set swapfile
 set dir=~/tmp
 "set paste
-let g:BASH_AuthorName   = 'Davide Ferrari'
-let g:BASH_Email        = 'davide@billymob.com'
-let g:BASH_Company      = 'Billy Performance Network'
 " sytastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -51,7 +48,8 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-map <C-n> :tabNext<CR>
+map <C-n> :tabnext<CR>
+map <C-m> :tabnew<CR>
 map <C-b> :tabedit<SPACE>
 
 " The Silver Searcher
@@ -86,3 +84,11 @@ if !exists('g:airline_symbols')
 
 " find & replace under cursor with ctrl+f
 " nnoremap <C-f> %s/<C-R><C-W>//gc<left><left><left>
+
+" terraform related settings
+let g:terraform_align=1
+let g:terraform_fold_sections=1
+let g:terraform_remap_spacebar=1
+let g:terraform_fmt_on_save=1
+autocmd FileType terraform setlocal commentstring=#%s
+

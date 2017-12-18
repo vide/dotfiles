@@ -30,8 +30,6 @@
     # commit everything but doesn't push it
     cm = "!func(){ git add . && git commit -a -m \"$1\";};func"
 [merge]
- tool = meld
-
-
+    tool = meld
 [credential]
 	helper = cache
