@@ -145,7 +145,7 @@ function tfd {
 }
 
 function tfp {
-	terraform plan "$@"
+	terraform plan "$@" | landscape
         RET=$?	
 	notify-send --urgency=low -i "$([ $RET = 0 ] && echo terminal || echo error)" "terraform plan" "finished with $([ $RET = 0 ] && echo success || echo error)"
 }
