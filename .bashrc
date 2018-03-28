@@ -131,6 +131,10 @@ source ~/.bash-git-prompt/gitprompt.sh
 source <(minikube completion bash)
 source <(kubectl completion bash)
 
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+
 function tfa {
 	terraform apply "$@"
         RET=$?	
