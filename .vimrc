@@ -1,5 +1,6 @@
 " Colors {{{
-let mapleader = "ñ"
+let mapleader = "\ñ"
+nnoremap <Leader>p "+p<CR>
 syntax enable           " enable syntax processing
 colorscheme badwolf
 set term=screen-256color
@@ -28,7 +29,6 @@ set incsearch           " search as characters are entered
 set hlsearch            " highlight all matches
 set swapfile
 set dir=~/tmp
-"set paste
 " sytastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -51,6 +51,7 @@ map <C-l> <C-w>l
 map <C-n> :tabnext<CR>
 map <C-m> :tabnew<CR>
 map <C-b> :tabedit<SPACE>
+map <C-d> :tabclose<CR>
 
 " The Silver Searcher
 if executable('ag')
@@ -70,7 +71,6 @@ nnoremap F :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap - :Ag<SPACE>
 nnoremap <leader>d dd
-nnoremap <leader>n tabnew<CR>
 " autocmd vimenter * NERDTree
 "
 let g:airline#extensions#tabline#enabled = 1
