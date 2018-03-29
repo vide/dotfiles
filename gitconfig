@@ -1,6 +1,7 @@
 [user]
 	name = Davide Ferrari
 	email = vide80@gmail.com
+	signingkey = 5E80879536562A3A
 [github]
 	user = vide
 [color]
@@ -33,3 +34,5 @@
     tool = meld
 [credential]
 	helper = cache
+[commit]
+	gpgsign = true
