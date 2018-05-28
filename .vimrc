@@ -2,7 +2,8 @@
 let mapleader = "\ñ"
 nnoremap <Leader>p "+p<CR>
 syntax enable           " enable syntax processing
-colorscheme badwolf
+colorscheme badwolf " dark
+" colorscheme pyte
 set term=screen-256color
 " }}}
 set tabstop=4           " 4 space tab
