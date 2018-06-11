@@ -137,24 +137,25 @@ gpgconf --launch gpg-agent
 
 function tfa {
 	terraform apply "$@"
-        RET=$?	
+        RET=$?
 	notify-send --urgency=low -i "$([ $RET = 0 ] && echo terminal || echo error)" "terraform apply" "finished with $([ $RET = 0 ] && echo success || echo error)"
 
 }
 
 function tfd {
 	terraform destroy "$@"
-        RET=$?	
+        RET=$?
 	notify-send --urgency=low -i "$([ $RET = 0 ] && echo terminal || echo error)" "terraform destroy" "finished with $([ $RET = 0 ] && echo success || echo error)"
 }
 
 function tfp {
 	terraform plan "$@" | landscape
-        RET=$?	
+        RET=$?
 	notify-send --urgency=low -i "$([ $RET = 0 ] && echo terminal || echo error)" "terraform plan" "finished with $([ $RET = 0 ] && echo success || echo error)"
 }
 
-function agp {
-    ag "$@" | fpp
+function rgp {
+    rg "$@" | fpp
 }
 
+alias ag='rg' 
