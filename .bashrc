@@ -155,7 +155,8 @@ function tfp {
 }
 
 function rgp {
-    rg "$@" | fpp
+    rg -n "$@" | fpp
 }
 
-alias ag='rg' 
+alias ag='rg'
+alias agp='rgp'
