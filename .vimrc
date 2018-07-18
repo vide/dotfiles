@@ -5,6 +5,7 @@ syntax enable           " enable syntax processing
 colorscheme badwolf " dark
 " colorscheme pyte
 set term=screen-256color
+set ttyfast
 " }}}
 set tabstop=4           " 4 space tab
 set expandtab           " use spaces for tabs
@@ -18,7 +19,7 @@ filetype plugin on
 set omnifunc=syntaxcomplete#Complete
 set autoindent
 set number              " show line numbers
-set relativenumber
+"set relativenumber
 set showcmd             " show command in bottom bar
 set nocursorline        " highlight current line
 set wildmenu
