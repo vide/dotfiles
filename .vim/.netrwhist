@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/vide/git/work/stuart/infrastructure/terraform/v2/common'
+let g:netrw_dirhist_2='/home/vide/tmp/bla'
+let g:netrw_dirhist_3='/home/vide/git/work/forks/mysql_role'
+let g:netrw_dirhist_4='/home/vide/git/work/stuart/stuart.gocarbon/.git'
+let g:netrw_dirhist_5='/home/vide/.config'

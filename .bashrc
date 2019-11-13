@@ -1,7 +1,6 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -128,8 +127,11 @@ PATH=~/.local/bin:~/bin:$PATH
 GIT_PROMPT_ONLY_IN_REPO=1
 source ~/.bash-git-prompt/gitprompt.sh
 
-source <(minikube completion bash)
 source <(kubectl completion bash)
+source $HOME/git/infrastructure/scripts/hashienv/hashienv.sh
+eval "$(direnv hook bash)"
+
+export KUBECONFIG="$HOME/.kube/config:$HOME/.kube/config-stellar"
 
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
@@ -144,13 +146,13 @@ function tfa {
 
 function tfd {
 	terraform destroy "$@"
-        RET=$?
+    RET=$?
 	notify-send --urgency=low -i "$([ $RET = 0 ] && echo terminal || echo error)" "terraform destroy" "finished with $([ $RET = 0 ] && echo success || echo error)"
 }
 
 function tfp {
-	terraform plan "$@" | landscape
-        RET=$?
+	terraform plan "$@"
+    RET=$?
 	notify-send --urgency=low -i "$([ $RET = 0 ] && echo terminal || echo error)" "terraform plan" "finished with $([ $RET = 0 ] && echo success || echo error)"
 }
 
@@ -158,5 +160,25 @@ function rgp {
     rg -n "$@" | fpp
 }
 
+function tfpfile {
+  [ -z $1 ] && { echo "No input file provided"; return; }
+  TARGETS="$(grep -Eo "(module|resource) (\".*\")( \".*\")?" "$1"|sed 's/resource //g;s/"//g;s/ /./g;s/^/-target=/g'|tr '\n' ' ')"
+  echo "Running tfp $TARGETS"
+  tfp $TARGETS
+}
+
+function tfafile {
+  [ -z $1 ] && { echo "No input file provided"; return; }
+  TARGETS="$(grep -Eo "(module|resource) (\".*\")( \".*\")?" "$1"|sed 's/resource //g;s/"//g;s/ /./g;s/^/-target=/g'|tr '\n' ' ')"
+  echo "Running tfa $TARGETS"
+  tfa $TARGETS
+}
+
+function tfdfile {
+  [ -z $1 ] && { echo "No input file provided"; return; }
+  TARGETS="$(grep -Eo "(module|resource) (\".*\")( \".*\")?" "$1"|sed 's/resource //g;s/"//g;s/ /./g;s/^/-target=/g'|tr '\n' ' ')"
+  echo "Running tfa $TARGETS"
+  tfd $TARGETS
+}
 alias ag='rg'
 alias agp='rgp'
