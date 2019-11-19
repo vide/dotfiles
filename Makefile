@@ -13,3 +13,5 @@ powerline:
 tmux-setup:
 	ln -sf $(REPO)/.tmux/.tmux.conf ~/.tmux.conf
 	ln -sf $(REPO)/.tmux.conf.local ~/.tmux.conf.local
+git-setup:
+	ln -sf $(REPO)/gitconfig ~/.gitconfig

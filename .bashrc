@@ -119,9 +119,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-  source /etc/profile.d/vte.sh
-fi
 
 PATH=~/.local/bin:~/bin:$PATH
 GIT_PROMPT_ONLY_IN_REPO=1
