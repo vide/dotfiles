@@ -15,3 +15,6 @@ tmux-setup:
 	ln -sf $(REPO)/.tmux.conf.local ~/.tmux.conf.local
 git-setup:
 	ln -sf $(REPO)/gitconfig ~/.gitconfig
+bash-setup:
+	git clone https://github.com/magicmonty/bash-git-prompt.git ~/.bash-git-prompt --depth=1
+	ln -sf $(REPO)/.bashrc ~/.bashrc
