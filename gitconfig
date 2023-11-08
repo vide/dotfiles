@@ -10,6 +10,9 @@
 	branch = auto
 [push]
 	default = simple
+	followTags = true
+[pull]
+    rebase = false
 [pretty]
 # set some nice colors
 	graph = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset
@@ -36,3 +39,19 @@
 	helper = cache
 [commit]
 	gpgsign = false
+[gitflow "feature.finish"]
+	keepremote = no
+	squash = yes
+[gitflow "hotfix.finish"]
+	keepremote = no
+[gitflow "release.finish"]
+	keepremote = no
+	squash = no
+[gitflow "path"]
+	hooks = /home/vide/git/work/stuart/dsc-common/git-flow-hooks
+[gitflow "prefix"]
+	versiontag = 
+[help]
+	autocorrect = 15
+[init]
+	defaultBranch = main

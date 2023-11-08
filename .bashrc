@@ -16,7 +16,7 @@ shopt -s histappend
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000000
 HISTFILESIZE=2000000
-
+export HISTTIMEFORMAT='%F %T '
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -120,16 +120,18 @@ if ! shopt -oq posix; then
   fi
 fi
 
-PATH=~/.local/bin:~/bin:$PATH
+# autocorrect typos
+shopt -s cdspell
+
+PATH=$HOME/.krew/bin:~/.local/bin:~/bin:$PATH
 GIT_PROMPT_ONLY_IN_REPO=1
 source ~/.bash-git-prompt/gitprompt.sh
 
 source <(kubectl completion bash)
-source $HOME/git/infrastructure/scripts/hashienv/hashienv.sh
+#source $HOME/git/infrastructure/scripts/hashienv/hashienv.sh
 eval "$(direnv hook bash)"
 
-export KUBECONFIG="$HOME/.kube/config:$HOME/.kube/config-stellar"
-
+export KUBECONFIG=/home/vide/.stuart_kubeconfig.yaml
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
@@ -177,5 +179,38 @@ function tfdfile {
   echo "Running tfa $TARGETS"
   tfd $TARGETS
 }
+
+complete -W "$(grep '\[profile' ~/.aws/config | tr -d '[]' | awk '{print $2}')" aws-profile
+
+function aws-profile() {
+  if [[ -z "${1}" ]]; then
+    profiles=$(grep '\[profile' ~/.aws/config | tr -d '[]' | awk '{print $2}')
+    for profile in $profiles; do
+      if [[ "${profile}" == "${AWS_PROFILE}" ]]; then
+        echo "${profile} *"
+      else
+        echo "${profile}"
+      fi
+    done
+  else
+    export AWS_PROFILE="${1}"
+  fi
+}
+
+alias tfi='terraform init'
 alias ag='rg'
 alias agp='rgp'
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+alias cdt='cd $HOME/git/infrastructure/terraform/v3'
+alias cda='cd $HOME/git/infrastructure/ansible'
+alias cds='cd $HOME/git/sre/sre'
+alias ssm='aws ssm start-session --target'
+alias ssoprod='aws-profile stuart-aws-prod && aws sso login'
+source <(gh completion -s bash)
+
+export PATH=$HOME/bin:$PATH
+
+source /usr/share/doc/fzf/examples/key-bindings.bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
